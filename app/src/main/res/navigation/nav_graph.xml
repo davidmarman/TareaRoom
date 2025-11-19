@@ -15,4 +15,9 @@
         android:name="com.example.tarearoom.NuevoAlumno"
         android:label="fragment_nuevo_alumno"
         tools:layout="@layout/fragment_nuevo_alumno" />
+    <fragment
+        android:id="@+id/modificarAlumnoFr"
+        android:name="com.example.tarearoom.ModificarAlumnoFr"
+        android:label="fragment_modificar_alumno"
+        tools:layout="@layout/fragment_modificar_alumno" />
 </navigation>

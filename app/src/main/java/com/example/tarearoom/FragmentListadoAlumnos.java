@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -44,7 +45,12 @@ public class FragmentListadoAlumnos extends Fragment {
         navController = Navigation.findNavController(view);
 
 
-
+        binding.irANuevoAlumno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.nuevoAlumno);
+            }
+        });
 
 
         // crear el Adaptador
@@ -52,6 +58,13 @@ public class FragmentListadoAlumnos extends Fragment {
 
         // asociar el Adaptador con el RecyclerView
         binding.recyclerView.setAdapter(elementosAdapter);
+
+        viewModel.obtener().observe(getViewLifecycleOwner(), new Observer<List<Alumno>>() {
+            @Override
+            public void onChanged(List<Alumno> alumnos) {
+                elementosAdapter.establecerLista(alumnos);
+            }
+        });
 
     }
 
@@ -73,7 +86,20 @@ public class FragmentListadoAlumnos extends Fragment {
             Alumno elemento = elementos.get(position);
 
             holder.binding.etNombre.setText(elemento.nombre);
-            holder.binding.etNota.setText((int) elemento.nota);
+            holder.binding.etNota.setText(String.valueOf(elemento.nota));
+            holder.binding.btnBorrar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewModel.eliminar(elemento);
+                }
+            });
+
+            holder.binding.btnModificar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
 
         }
 
