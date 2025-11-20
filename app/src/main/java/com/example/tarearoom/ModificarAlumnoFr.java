@@ -75,10 +75,26 @@ public class ModificarAlumnoFr extends Fragment {
     private void guardarCambios(){
         String nuevoNombre = binding.editNombre.getText().toString();
         String nuevaNotaString = binding.editNota.getText().toString();
-        float nuevaNota = Float.parseFloat(nuevaNotaString);
+        float nuevaNota;
 
+
+        //Validamos que no esten los campos vacios
         if (nuevoNombre.isEmpty() || nuevaNotaString.isEmpty()){
             Toast.makeText(getContext(),"Faltan Datos",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //Convertimos el texto a numero
+        try{
+            nuevaNota = Float.parseFloat(nuevaNotaString);
+        }catch (NumberFormatException e){
+            Toast.makeText(getContext(), "Formato de numero no valido", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //Validamos el valor de la nota
+        if(nuevaNota < 0 || nuevaNota > 10){
+            Toast.makeText(getContext(), "La nota tiene que estar entre 0 y 10", Toast.LENGTH_SHORT).show();
             return;
         }
 
