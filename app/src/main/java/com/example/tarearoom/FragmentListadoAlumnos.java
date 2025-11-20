@@ -1,6 +1,8 @@
 package com.example.tarearoom;
 
+import android.app.AlertDialog;
 import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import androidx.room.RoomSQLiteQuery;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.tarearoom.databinding.FragmentListadoAlumnosBinding;
 import com.example.tarearoom.databinding.ViewholderAlumnoBinding;
@@ -90,9 +93,10 @@ public class FragmentListadoAlumnos extends Fragment {
             holder.binding.btnBorrar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    viewModel.eliminar(elemento);
+                    showDeleteConfirmationDialog(getContext(),elemento);
                 }
             });
+
 
             holder.binding.btnModificar.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -104,7 +108,32 @@ public class FragmentListadoAlumnos extends Fragment {
                     navController.navigate(R.id.modificarAlumnoFr,bundle);
                 }
             });
+        }
 
+        /*
+         * Muestra el diálogo de confirmación antes de borrar una tarea.
+         */
+        private void showDeleteConfirmationDialog(Context context, Alumno a) {
+            new AlertDialog.Builder(context)
+                    // Título del diálogo
+                    .setTitle("Confirmar Borrado")
+                    // Pregunta de comprobación
+                    .setMessage("¿Está seguro de borrar este alumno: \"" +
+                            a.getNombre() + "\"? Esta acción es irreversible.")
+                    // Botón de confirmación (Positivo)
+                    .setPositiveButton("Sí, Borrar", (dialog, which) -> {
+                        // Si el usuario hace clic en "Sí, Borrar",ejecutamos la acciónalumnoViewModel.eliminar(a);
+                        viewModel.eliminar(a);
+                        Toast.makeText(context, "Alumno '" + a.getNombre() +
+                                "' eliminado.", Toast.LENGTH_SHORT).show();
+                    })
+                    // Botón de cancelación (Negativo)
+                    .setNegativeButton("Cancelar", (dialog, which) -> {
+                        // Si el usuario hace clic en "Cancelar", simplementese cierra el diálogo
+                        dialog.dismiss();
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert) // Icono de alerta
+                    .show();
         }
 
         @Override
