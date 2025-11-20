@@ -16,11 +16,12 @@
         android:textSize="36dp"
         android:textStyle="bold"
         android:paddingTop="82dp"
-        android:background="#408062"
+        android:background="@drawable/bg_gradiente"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="4dp"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -31,16 +32,16 @@
         app:layout_constraintTop_toBottomOf="@id/tvEncabezado"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="#383838"
+        android:paddingBottom="28dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/irANuevoAlumno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:backgroundTint="#49BA8B"
-        android:foregroundTint="@color/white"
-        android:tint="@color/white"
+        android:backgroundTint="#33A5AF"
         app:srcCompat="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
