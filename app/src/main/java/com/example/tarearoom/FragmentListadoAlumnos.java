@@ -97,7 +97,11 @@ public class FragmentListadoAlumnos extends Fragment {
             holder.binding.btnModificar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // Enviar el alumno para editar en un bundle al nuevo fragmento
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("alumnoSeleccionado",elemento);
 
+                    navController.navigate(R.id.modificarAlumnoFr,bundle);
                 }
             });
 

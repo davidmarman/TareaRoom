@@ -6,8 +6,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "alumno")
-public class Alumno {
+public class Alumno implements Serializable {
 
     public void setId(int id) {
         this.id = id;
