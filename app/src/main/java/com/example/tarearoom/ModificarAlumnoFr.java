@@ -58,8 +58,9 @@ public class ModificarAlumnoFr extends Fragment {
         binding.btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                guardarCambios();
-                navController.popBackStack();
+                if(guardarCambios()){
+                    navController.popBackStack();
+                }
             }
         });
 
@@ -72,7 +73,7 @@ public class ModificarAlumnoFr extends Fragment {
 
     }
 
-    private void guardarCambios(){
+    private boolean guardarCambios(){
         String nuevoNombre = binding.editNombre.getText().toString();
         String nuevaNotaString = binding.editNota.getText().toString();
         float nuevaNota;
@@ -81,7 +82,7 @@ public class ModificarAlumnoFr extends Fragment {
         //Validamos que no esten los campos vacios
         if (nuevoNombre.isEmpty() || nuevaNotaString.isEmpty()){
             Toast.makeText(getContext(),"Faltan Datos",Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
         //Convertimos el texto a numero
@@ -89,13 +90,13 @@ public class ModificarAlumnoFr extends Fragment {
             nuevaNota = Float.parseFloat(nuevaNotaString);
         }catch (NumberFormatException e){
             Toast.makeText(getContext(), "Formato de numero no valido", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
         //Validamos el valor de la nota
         if(nuevaNota < 0 || nuevaNota > 10){
             Toast.makeText(getContext(), "La nota tiene que estar entre 0 y 10", Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
         // Ponemos los nuevos valroes al alumno
@@ -104,5 +105,6 @@ public class ModificarAlumnoFr extends Fragment {
 
         // notificamos de la actualizacion
         Toast.makeText(getContext(),"Alumno Actualizado",Toast.LENGTH_SHORT).show();
+        return true;
     }
 }
